@@ -1,2 +1,10 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+<a href="/new"><button>Add a Message</button></a>
+<ul>
+  {{#each messages}}
+    <li>
+      <p>{{user}} said {{text}} on {{added}}</p>
+    </li>
+  {{/each}}
+</ul>
