@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const ConnectDb = require("./config/dbCon");
+const { engine } = require("express-handlebars");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -14,8 +15,22 @@ var app = express();
 //connect to db
 ConnectDb();
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "main",
+    layoutsDir: path.join(__dirname, "views", "layouts"),
+    partialsDir: path.join(__dirname, "views", "partials"),
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
+  })
+);
 app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(logger("dev"));
 app.use(express.json());
