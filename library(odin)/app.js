@@ -16,6 +16,11 @@ var app = express();
 ConnectDb();
 // view engine setup
 
+const hbsHelpers = {
+  eq: (a, b) => a === b,
+  neq: (a, b) => a !== b,
+};
+
 app.engine(
   "hbs",
   engine({
@@ -23,6 +28,7 @@ app.engine(
     defaultLayout: "main",
     layoutsDir: path.join(__dirname, "views", "layouts"),
     partialsDir: path.join(__dirname, "views", "partials"),
+    helpers: hbsHelpers,
     runtimeOptions: {
       allowProtoPropertiesByDefault: true,
       allowProtoMethodsByDefault: true,
