@@ -3,9 +3,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const ConnectDb = require("./config/dbCon");
 const { engine } = require("express-handlebars");
-
+const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog");
@@ -13,7 +12,18 @@ const catalogRouter = require("./routes/catalog");
 var app = express();
 
 //connect to db
-ConnectDb();
+// ConnectDb();
+
+const mongoDB =
+  "mongodb+srv://tazmaheyot:1KoXs7tLYjapdQ7D@cluster0.bymjqjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose
+    .connect(mongoDB)
+    .then(() => console.log("Successfully connected to MongoDB."));
+}
+
 // view engine setup
 
 const hbsHelpers = {
