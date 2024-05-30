@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 // Display list of all Genre.
 exports.genre_list = asyncHandler(async (req, res, next) => {
-  const allGenres = await genre.find().populate("book").exec();
+  const allGenres = await Genre.find().sort({ name: 1 }).exec();
   res.render("genre_list", {
     title: "genre List",
     genre_list: allGenres,
