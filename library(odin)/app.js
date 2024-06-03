@@ -5,24 +5,21 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { engine } = require("express-handlebars");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const ConnectDb = require("./config/ConnectDb");
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog");
 
 var app = express();
 
+var port = "3000";
+app.set("port", port);
+
+app.use(cors());
 //connect to db
 // ConnectDb();
-
-const mongoDB =
-  "mongodb+srv://tazmaheyot:1KoXs7tLYjapdQ7D@cluster0.bymjqjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose
-    .connect(mongoDB)
-    .then(() => console.log("Successfully connected to MongoDB."));
-}
 
 // view engine setup
 
@@ -74,4 +71,8 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+ConnectDb().then(() => {
+  app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+  });
+});
