@@ -1,0 +1,41 @@
+<h1>Title: {{book.title}}</h1>
+
+<p><strong>Author: </strong>
+  <a href="{{book.author.url}}">{{book.author.name}}</a>
+</p>
+<p><strong>Summary: </strong>{{book.summary}}</p>
+<p><strong>ISBN: </strong>{{book.isbn}}</p>
+<p><strong>Genre: </strong>
+  {{#each book.genre as |val index|}}
+    <a href="{{val.url}}">{{val.name}}</a>{{#if
+      (lt index (sub book.genre.length 1))
+    }},&nbsp;{{/if}}
+  {{/each}}
+</p>
+
+<div style="margin-left:20px;margin-top:20px">
+  <h2 style="font-size: 1.5rem;">Copies</h2>
+
+  {{#if book_instances.length}}
+    {{#each book_instances as |val|}}
+      <hr />
+      {{#if (eq val.status "Available")}}
+        <p class="text-success">{{val.status}}</p>
+      {{else if (eq val.status "Maintenance")}}
+        <p class="text-danger">{{val.status}}</p>
+      {{else}}
+        <p class="text-warning">{{val.status}}</p>
+      {{/if}}
+      <p><strong>Imprint: </strong>{{val.imprint}}</p>
+      {{#unless (eq val.status "Available")}}
+        <p><strong>Due back: </strong>{{val.due_back}}</p>
+      {{/unless}}
+      <p><strong>Id: </strong>
+        <a href="{{val.url}}">{{val._id}}</a>
+      </p>
+    {{/each}}
+  {{else}}
+    <p>There are no copies of this book in the library.</p>
+  {{/if}}
+
+</div>
