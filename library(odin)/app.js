@@ -26,6 +26,8 @@ app.use(cors());
 const hbsHelpers = {
   eq: (a, b) => a === b,
   neq: (a, b) => a !== b,
+  sub: (a, b) => a - b,
+  lt: (a, b) => a < b,
 };
 
 app.engine(
