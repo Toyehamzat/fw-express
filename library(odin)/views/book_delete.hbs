@@ -1,0 +1,42 @@
+<h1>{{title}}: {{book.name}}</h1>
+
+{{#if book_instances.length}}
+  <p><strong>Delete the following books instances before attempting to delete
+      this book.</strong></p>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books instances</h4>
+  {{#each book_instances as |val|}}
+    <hr />
+    {{#if (eq val.status "Available")}}
+      <p class="text-success">{{val.status}}</p>
+    {{else if (eq val.status "Maintenance")}}
+      <p class="text-danger">{{val.status}}</p>
+    {{else}}
+      <p class="text-warning">{{val.status}}</p>
+    {{/if}}
+    <p><strong>Imprint: </strong>{{val.imprint}}</p>
+    {{#unless (eq val.status "Available")}}
+      <p><strong>Due back: </strong>{{val.due_back}}</p>
+    {{/unless}}
+    <p><strong>Id: </strong>
+      <a href="{{val.url}}">{{val._id}}</a>
+    </p>
+  {{/each}}
+
+{{else}}
+  <p>Do you really want to delete this book?</p>
+
+  <form method="POST">
+    <div class="form-group">
+      <input
+        id="bookid"
+        class="form-control"
+        type="hidden"
+        name="bookid"
+        value="{{book._id}}"
+      />
+    </div>
+    <button class="btn btn-primary" type="submit">Delete</button>
+  </form>
+
+{{/if}}
