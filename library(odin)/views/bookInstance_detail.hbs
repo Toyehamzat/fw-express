@@ -17,3 +17,20 @@
 {{#if (neq bookinstance.status "Available")}}
   <p><strong>Due back:</strong> {{bookinstance.due_back_formatted}}</p>
 {{/if}}
+
+<hr />
+<hr />
+<p>Do you really want to delete this Book instance?</p>
+
+<form method="POST" action="{{bookinstance.url}}/delete">
+  <div class="form-group">
+    <input
+      id="bookinstanceid"
+      class="form-control"
+      type="hidden"
+      name="bookinstanceid"
+      value="{{bookinstance._id}}"
+    />
+  </div>
+  <button class="btn btn-primary" type="submit">Delete</button>
+</form>
