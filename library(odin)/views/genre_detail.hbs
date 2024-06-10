@@ -16,7 +16,14 @@
     <p>This genre has no books.</p>
   {{/if}}
   <hr />
-  <p>
-    <a href="{{genre.url}}/delete">Delete genre</a>
-  </p>
+
+  <div style="display: flex; gap: 10px; font-weight: 900;">
+
+    <p>
+      <a href="{{genre.url}}/delete">Delete genre</a>
+    </p>
+    <p>
+      <a href="{{genre.url}}/update">Update genre</a>
+    </p>
+  </div>
 </div>
