@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+mongoose.set("strictQuery", false);
 const mongoDB =
   process.env.MONGODB_URI ||
   "mongodb+srv://anibiseun:6kn9uNOCzFPdHaac@cluster0.yftm9oz.mongodb.net/LocalLibrary?retryWrites=true&w=majority&appName=Cluster0";
