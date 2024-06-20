@@ -1,3 +1,4 @@
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -7,6 +8,9 @@ const { engine } = require("express-handlebars");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const ConnectDb = require("./config/ConnectDb");
+const compression = require("compression");
+const RateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -17,9 +21,25 @@ var app = express();
 var port = "3000";
 app.set("port", port);
 
+app.use(compression()); // Compress all routes
+
+// Set up rate limiter: maximum of twenty requests per minute
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 app.use(cors());
 //connect to db
 // ConnectDb();
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
 
 // view engine setup
 
