@@ -2,12 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Express</title>
+    <title>app</title>
   </head>
   <body>
-    <h1>hello world</h1>
-    <button>
-      <a href="/sign-up">Sign-up here</a>
-    </button>
+    <% if (user) {%>
+    <h1>WELCOME BACK <%= user.username %></h1>
+    <a href="/log-out">LOG OUT</a>
+    <% } else { %>
+    <h1>please log in</h1>
+    <form action="/log-in" method="POST">
+      <label for="username">Username</label>
+      <input name="username" placeholder="username" type="text" />
+      <label for="password">Password</label>
+      <input name="password" type="password" />
+      <button>Log In</button>
+    </form>
+    <p>dont have an account? <a href="/sign-up">sign up in here</a></p>
+    <%}%>
   </body>
 </html>
