@@ -5,6 +5,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
+const bcrypt = require("bcryptjs");
 
 const indexRouter = require("./routes/index");
 const signUpRouter = require("./routes/signUpRouter");
@@ -29,6 +30,7 @@ db.once("open", () => {
   app.use(passport.session());
   app.use(express.urlencoded({ extended: false }));
 
+  // Passport LocalStrategy configuration
   passport.use(
     new LocalStrategy(async (username, password, done) => {
       try {
@@ -36,16 +38,18 @@ db.once("open", () => {
         if (!user) {
           return done(null, false, { message: "Incorrect username" });
         }
-        if (user.password !== password) {
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
           return done(null, false, { message: "Incorrect password" });
         }
+
         return done(null, user);
       } catch (err) {
         return done(err);
       }
     })
   );
-
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
