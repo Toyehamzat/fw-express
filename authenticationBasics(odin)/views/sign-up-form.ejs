@@ -2,17 +2,92 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title></title>
+    <title>Sign Up</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        width: 100%;
+        text-align: center;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        text-align: left;
+      }
+      input[type="text"],
+      input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button {
+        background-color: #0066cc;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #005bb5;
+      }
+      p {
+        color: #333;
+        margin-top: 20px;
+        text-align: center;
+      }
+      a {
+        color: #0066cc;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Sign Up</h1>
-    <form action="" method="POST">
-      <label for="username">Username</label>
-      <input name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input name="password" type="password" />
-      <button>Sign Up</button>
-    </form>
-    <p>already have an account? <a href="/log-in">login in here</a></p>
+    <div>
+      <h1>Sign Up</h1>
+      <form action="" method="POST">
+        <label for="username">Username</label>
+        <input name="username" placeholder="username" type="text" required />
+        <label for="password">Password</label>
+        <input
+          placeholder="password"
+          name="password"
+          type="password"
+          required
+        />
+        <button>Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="/log-in">Log in here</a></p>
+    </div>
   </body>
 </html>
